@@ -2,8 +2,10 @@ name: Docker
 
 on:
   push:
-    tags:
-      - '*'
+    # tags:
+    #   - '*'
+    branches:
+      - main
 env:
   IMAGE_NAME: feedbot
   REGISTRY: ghcr.io
