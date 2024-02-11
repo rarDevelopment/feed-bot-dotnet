@@ -9,7 +9,6 @@ public class MessageReceivedNotificationHandler : INotificationHandler<MessageRe
     {
         _ = Task.Run(async () =>
         {
-            await notification.Message.AddReactionAsync(new Emoji("😇"));
             return Task.CompletedTask;
         });
         return Task.CompletedTask;
