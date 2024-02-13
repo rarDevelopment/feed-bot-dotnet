@@ -3,6 +3,7 @@ using FeedBot.Notifications;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sgbj.Cron;
 
 namespace FeedBot;
 

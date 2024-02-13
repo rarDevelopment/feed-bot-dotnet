@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FeedBot
+namespace FeedBot;
+
+public class FeedPoster
 {
-    internal class FeedPoster
-    {
-    }
 }
