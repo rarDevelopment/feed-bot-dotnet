@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
     <PackageReference Include="NodaTime" Version="3.1.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeedBot.Models\FeedBot.Models.csproj" />
   </ItemGroup>
 
 </Project>

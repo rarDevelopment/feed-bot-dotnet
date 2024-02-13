@@ -41,6 +41,19 @@ public class DiscordBot(
         await client.LoginAsync(TokenType.Bot, discordSettings.BotToken);
 
         await client.StartAsync();
+
+        await SetUpSchedules(stoppingToken);
+    }
+
+    private async Task SetUpSchedules(CancellationToken stoppingToken)
+    {
+        // birthday timer setup
+        using var timer = new CronTimer("1 * * * *", TimeZoneInfo.Local);
+
+        while (await timer.WaitForNextTickAsync(stoppingToken))
+        {
+            await birthdayCheckHandler.HandleBirthdayCheck();
+        }
     }
 
     private async Task ClientReady()

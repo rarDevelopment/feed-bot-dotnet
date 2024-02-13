@@ -10,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System.Reflection;
+using FeedBot.DataLayer;
 using FeedBot.Models;
-
+using NodaTime;
 
 var builder = new HostBuilder();
 
@@ -42,10 +43,23 @@ builder.ConfigureServices((host, services) =>
 
     var discordSettings = new DiscordSettings(host.Configuration["Discord:BotToken"]!);
     var versionSettings = new VersionSettings(host.Configuration["Version:VersionNumber"]!);
+    var databaseSettings = new DatabaseSettings
+    {
+        Cluster = host.Configuration["Database:Cluster"],
+        User = host.Configuration["Database:User"],
+        Password = host.Configuration["Database:Password"],
+        Name = host.Configuration["Database:Name"],
+    };
 
     services.AddSingleton(discordSettings);
+    services.AddSingleton(databaseSettings);
     services.AddSingleton(versionSettings);
     services.AddScoped<IDiscordFormatter, DiscordFormatter>();
+    services.AddScoped<IFeedDataLayer, FeedDataLayer>();
+    services.AddScoped<IFeedProcessor, FeedProcessor>();
+
+    IClock clock = SystemClock.Instance;
+    services.AddTransient(_ => clock);
 
     services.AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()));
 
